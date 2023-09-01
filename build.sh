@@ -1,7 +1,7 @@
 #!/bin/sh
 set -uex pipefail
 
-apt-get update -y && apt-get install -y autoconf libncurses-dev build-essential
+apt-get update -y && apt-get install -y jq autoconf libncurses-dev build-essential
 
 curl -LJ -o /tmp/datasheet https://api.github.com/repos/st3w/neo/releases/latest
 url=$(jq -r ".assets[] | select(.name | test(\"tar.gz\")) | .browser_download_url" < /tmp/datasheet)
