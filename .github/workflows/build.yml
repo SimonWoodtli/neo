@@ -1,4 +1,4 @@
-name: build-netdiscover
+name: build-neo
 on:
   schedule:
     - cron: '20 20 15 * *'  # 8:20pm on the 15th every month
@@ -10,7 +10,7 @@ on:
       - '**.txt'
 env:
     IMAGE_NAME: ${{ github.event.repository.name }}
-    MAJOR_VERSION: 3
+    MAJOR_VERSION: 0
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
     REGISTRY_USER: ${{ github.actor }}
     REGISTRY_PASSWORD: ${{ github.token }}
@@ -43,7 +43,7 @@ jobs:
       - name: Get current version
         id: labels
         run: |
-          ver=$(curl https://api.github.com/repos/netdiscover-scanner/netdiscover/releases/latest | jq '.tag_name' | tr -d '"')
+          ver=$(curl https://api.github.com/repos/st3w/neo/releases/latest | jq '.tag_name' | tr -d '"' | tr -d "v")
           echo "VERSION=$ver" >> $GITHUB_OUTPUT
 
       # Build metadata
@@ -56,8 +56,8 @@ jobs:
           labels: |
             org.opencontainers.image.title=${{ env.IMAGE_NAME }}
             org.opencontainers.image.version=${{ steps.labels.outputs.VERSION }}
-            org.opencontainers.image.description=Borderless ${{ env.IMAGE_NAME }} image
-            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/SimonWoodtli/tmux/main/README.md
+            org.opencontainers.image.description=${{ env.IMAGE_NAME }} image
+            io.artifacthub.package.readme-url=https://raw.githubusercontent.com/SimonWoodtli/neo/main/README.md
 
       ## Build image using Buildah action
       - name: Build Image
