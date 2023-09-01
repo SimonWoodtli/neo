@@ -11,7 +11,7 @@ tag=$(jq -r ".tag_name" < /tmp/datasheet)
 tag=${tag##*v}
 
 curl -LJ -o "/tmp/$pkgName" "$url"
-tar xf "/tmp/$pkgName"
+tar xf "/tmp/$pkgName" -C /tmp
 cd "/tmp/$name-$tag"
 
 sh configure && make && make install
