@@ -28,3 +28,7 @@ EOF
 ```
 docker run --rm -v $HOME/.local/bin:/mnt alpine-neo sh -c "install /bin/neo /mnt"
 ```
+
+Related:
+
+* https://github.com/st3w/neo
