@@ -6,6 +6,8 @@ This image contains the current neo-matrix binary.
 
 ## Installation
 
+> ⚠ Checkout the required dependencies on maintainers repo [here] and install them.
+
 ### CI/Image Install
 
 ```
@@ -14,21 +16,35 @@ COPY --from=ghcr.io/simonwoodtli/neo:latest /bin/neo /where/You/Want
 
 ### Local install
 
-1. Build image: 
+1. Build image:
 
 ```
-docker build -t alpine-neo -f- . <<EOF
+podman build -t alpine-neo -f- . <<EOF
 FROM alpine:latest
 COPY --from=ghcr.io/simonwoodtli/neo:latest /bin/neo /bin/neo
 EOF
 ```
 
-2. Copy neo to your host: 
+2. Run container in detached mode:
 
 ```
-docker run --rm -v $HOME/.local/bin:/mnt alpine-neo sh -c "install /bin/neo /mnt"
+podman run -dt localhost/alpine-neo
+```
+
+3. Get Container ID:
+
+```
+podman ps
+```
+
+4. Copy neo to your host: 
+
+```
+podman cp <containerId>:/bin/neo /where/You/Want
 ```
 
 Related:
 
 * https://github.com/st3w/neo
+
+[here]: <https://github.com/st3w/neo>
